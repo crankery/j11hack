@@ -1,0 +1,181 @@
+Name     J11 Interrupt Controller ;
+PartNo   00 ;
+Date     1/2/2017 ;
+Revision 01 ;
+Designer Len Bayles ;
+Company  TMD Innovations ;
+Assembly None ;
+Location  ;
+Device   F1502ISPPLCC44 ;
+
+/* *************** INPUT PINS *********************/
+PIN 1   =  !INIT;		/*                                 */ 
+PIN 2   =  !BUFCTL;		/*                                 */ 
+
+PIN 4   =  MSCP;		/* Interrupt Inputs                */
+PIN 5   =  SLU0RX;		/*                                 */
+PIN 6   =  SLU1RX;		/*                                 */
+PIN 8   =  SLU0TX;		/*                                 */
+PIN 9   =  SLU1TX;		/*                                 */
+
+PIN 11  =  MSCPE_R;		/* Enable latch R/W controls       */ 
+PIN 12  =  MSCPE_W;		/*                                 */ 
+PIN 14  =  SLU0RXE_R;		/*                                 */ 
+PIN 16  =  SLU0RXE_W;		/*                                 */ 
+PIN 17  =  SLU1RXE_R;		/*                                 */ 
+PIN 18  =  SLU1RXE_W;		/*                                 */ 
+PIN 19  =  SLU0TXE_R;		/*                                 */ 
+PIN 20  =  SLU0TXE_W;		/*                                 */ 
+PIN 21  =  SLU1TXE_R;		/*                                 */ 
+PIN 24  =  SLU1TXE_W;		/*                                 */ 
+
+PIN 33  =  EVENTE_R;		/*                              */ 
+PIN 34  =  EVENTE_W;		/*                              */ 
+PIN 36  =  EVENTI;		/*                              */ 
+
+PIN 43  =  D6I;		/*                                 */ 
+PIN 44  =  IAK;		/*                                 */ 
+
+
+/* *************** OUTPUT PINS *********************/
+
+PIN 25  =  MSCPV;		/* Vector outputs                  */ 
+PIN 26  =  SLU0RXV;		/*                                 */ 
+PIN 27  =  SLU1RXV;		/*                                 */ 
+PIN 28  =  SLU0TXV;		/*                                 */ 
+PIN 29  =  SLU1TXV;		/*                                 */ 
+
+PIN 37 =  EVENTO;		/*                              */ 
+
+PIN 39  =  !VROM;		/*                                 */ 
+PIN 40  =  D6O;		/*                                 */
+PIN 41  =  IRQ;		/*                                 */ 
+
+
+/* *************** PINNODES    *********************/
+PINNODE 45  =  MSCPE;		/* Enable                          */ 
+PINNODE 46  =  SLU0RXE;	/*                                 */ 
+PINNODE 47  =  SLU1RXE;	/*                                 */ 
+PINNODE 48  =  SLU0TXE;	/*                                 */ 
+PINNODE 49  =  SLU1TXE;	/*                                 */ 
+
+PINNODE 50  =  MSCPL;		/* Latched                         */ 
+PINNODE 51  =  SLU0RXL;	/*                                 */ 
+PINNODE 52  =  SLU1RXL;	/*                                 */ 
+PINNODE 53  =  SLU0TXL;	/*                                 */ 
+PINNODE 54  =  SLU1TXL;	/*                                 */ 
+
+PINNODE 55  =  MSCPA;		/* Active                          */ 
+PINNODE 54  =  SLU0RXA;	/*                                 */ 
+PINNODE 57  =  SLU1RXA;	/*                                 */ 
+PINNODE 58  =  SLU0TXA;	/*                                 */ 
+PINNODE 59  =  SLU1TXA;	/*                                 */ 
+
+PINNODE 60  =  EVENTE;	/* Enable                      */ 
+
+/* *************** LOGIC    *********************/
+
+D6O = (MSCPE & MSCPE_R) # (SLU0RXE & SLU0RXE_R) # (SLU1RXE & SLU1RXE_R) # (SLU0TXE & SLU0TXE_R) # (SLU1TXE & SLU1TXE_R) # (EVENTE & EVENTE_R); 
+
+D6O.OE = MSCPE_R # SLU0RXE_R # SLU1RXE_R # SLU0TXE_R # SLU1TXE_R # EVENTE_R; 
+
+IRQ = (MSCP & MSCPE & !MSCPL) # (SLU0RX & SLU0RXE & !SLU0RXL) # (SLU1RX & SLU1RXE & !SLU1RXL) # (SLU0TX & SLU0TXE & !SLU0TXL) # (SLU1TX & SLU1TXE & !SLU1TXL);
+
+MSCPV = !MSCPA & IAK;
+SLU0RXV = !SLU0RXA & IAK;
+SLU1RXV = !SLU1RXA & IAK;
+SLU0TXV = !SLU0TXA & IAK;
+SLU1TXV = !SLU1TXA & IAK;
+
+VROM = BUFCTL & IAK & !(MSCPV & SLU0RXV & SLU1RXV & SLU0TXV & SLU1TXV);
+
+EVENTO = EVENTI & EVENTE;
+
+/* *************** ENABLE REGISTERS    *********************/
+MSCPE.D = D6I;				/* MSCP Enable Register */
+MSCPE.CK = MSCPE_W;
+MSCPE.AR = INIT;
+MSCPE.AP = 'b'0;
+
+SLU0RXE.D = D6I;			/* SLU0RX Enable Register */
+SLU0RXE.CK = SLU0RXE_W;
+SLU0RXE.AR = INIT;
+SLU0RXE.AP = 'b'0;
+
+SLU1RXE.D = D6I;			/* SLU1RX Enable Register */
+SLU1RXE.CK = SLU1RXE_W;
+SLU1RXE.AR = INIT;
+SLU1RXE.AP = 'b'0;
+
+SLU0TXE.D = D6I;			/* SLU0TX Enable Register */
+SLU0TXE.CK = SLU0TXE_W;
+SLU0TXE.AR = INIT;
+SLU0TXE.AP = 'b'0;
+
+SLU1TXE.D = D6I;			/* SLU1TX Enable Register */
+SLU1TXE.CK = SLU1TXE_W;
+SLU1TXE.AR = INIT;
+SLU1TXE.AP = 'b'0;
+
+EVENTE.D = D6I;			/* EVENT Enable Register */
+EVENTE.CK = EVENTE_W;
+EVENTE.AR = INIT;
+EVENTE.AP = 'b'0;
+
+
+/* *************** LATCH REGISTERS    ******************** */
+MSCPL.D = 'b'0;			/* MSCP Latch Register */
+MSCPL.CK = MSCP & MSCPE;
+MSCPL.AR = INIT;
+MSCPL.AP = MSCPA & IAK;
+
+SLU0RXL.D = 'b'0;			/* SLU0RX Latch Register */
+SLU0RXL.CK = SLU0RX & SLU0RXE;
+SLU0RXL.AR = INIT;
+SLU0RXL.AP = SLU0RXA & !MSCPA & IAK;
+
+SLU1RXL.D = 'b'0;			/* SLU1RX Latch Register */
+SLU1RXL.CK = SLU1RX & SLU1RXE;
+SLU1RXL.AR = INIT;
+SLU1RXL.AP = SLU1RXA & !SLU0RXA & !MSCPA & IAK;
+
+SLU0TXL.D = 'b'0;			/* SLU0TX Latch Register */
+SLU0TXL.CK = SLU0TX & SLU0TXE;
+SLU0TXL.AR = INIT;
+SLU0TXL.AP = SLU0TXA & !SLU1RXA & !SLU0RXA & !MSCPA & IAK;
+
+SLU1TXL.D = 'b'0;			/* SLU1TX Latch Register */
+SLU1TXL.CK = SLU1TX & SLU1TXE;
+SLU1TXL.AR = INIT;
+SLU1TXL.AP = SLU1TXA & !SLU0TXA & !SLU1RXA & !SLU0RXA & !MSCPA & IAK;
+
+
+/* *************** ACTIVE REGISTERS    ******************** */
+MSCPA.D = MSCP & MSCPE & !MSCPL;			/* MSCP Enable Register */
+MSCPA.CK = BUFCTL;
+MSCPA.AR = INIT;
+MSCPA.AP = 'b'0;
+
+SLU0RXA.D = SLU0RX & SLU0RXE & !SLU0RXL;		/* SLU0RX Enable Register */
+SLU0RXA.CK = BUFCTL;
+SLU0RXA.AR = INIT;
+SLU0RXA.AP = 'b'0;
+
+SLU1RXA.D = SLU1RX & SLU1RXE & !SLU1RXL;		/* SLU1RX Enable Register */
+SLU1RXA.CK = BUFCTL;
+SLU1RXA.AR = INIT;
+SLU1RXA.AP = 'b'0;
+
+SLU0TXA.D = SLU0TX & SLU0TXE & !SLU0TXL;		/* SLU0TX Enable Register */
+SLU0TXA.CK = BUFCTL;
+SLU0TXA.AR = INIT;
+SLU0TXA.AP = 'b'0;
+
+SLU1TXA.D = SLU1TX & SLU1TXE & !SLU1TXL;		/* SLU1TX Enable Register */
+SLU1TXA.CK = BUFCTL;
+SLU1TXA.AR = INIT;
+SLU1TXA.AP = 'b'0;
+
+
+
+

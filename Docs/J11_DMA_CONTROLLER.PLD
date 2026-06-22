@@ -1,0 +1,237 @@
+Name     J11_Dma_controller ;
+PartNo   00 ;
+Date     1/12/2017 ;
+Revision 01 ;
+Designer Len Bayles ;
+Company  TMD Innovations ;
+Assembly None ;
+Location  ;
+Device   f1508ispplcc84 ;
+
+
+/************************** External Pins *************************************/
+
+/* Control Inputs */
+Pin 1 = INC;
+pin 2 = LOAD;
+pin 83 = CDBS0;
+pin 84 = CDBS1; 
+
+
+/* CPU Address Inputs */
+pin [4,5,6,8,9,10,11,12] = [A0,A1,A2,A3,A4,A5,A6,A7]; 
+pin [15,16,17,18,20,21,22,24] = [A8,A9,A10,A11,A12,A13,A14,A15]; 
+pin [25,27,28,29,30,31] = [A16,A17,A18,A19,A20,A21]; 
+
+
+/* DMA Address Inputs */
+pin [33,34,35,36,37,39,40,41] = [DMA0,DMA1,DMA2,DMA3,DMA4,DMA5,DMA6,DMA7]; 
+
+
+/* Latched Address Outputs */
+pin [81,80,79,77,76,75,74,73] = [LA0,LA1,LA2,LA3,LA4,LA5,LA6,LA7]; 
+pin [70,69,68,67,65,64,63,61] = [LA8,LA9,LA10,LA11,LA12,LA13,LA14,LA15]; 
+pin [60,58,57,56,55,54] = [LA16,LA17,LA18,LA19,LA20,LA21];                                      
+          
+/*************************** Internal Nodes ************************************/
+
+/* Address Latch Nodes */
+pinnode = AL0,AL1,AL2,AL3,AL4,AL5,AL6,AL7;  
+pinnode = AL8,AL9,AL10,AL11,AL12,AL13,AL14,AL15;
+pinnode = AL16,AL17,AL18,AL19,AL20,AL21;
+
+/*************************** Logic ************************************/
+
+/* Register Select Logic */
+RS0 = !(CDBS0 # CDBS1);
+RS1 = CDBS0 & !CDBS1;
+RS2 = !CDBS0 & CDBS1;
+RS3 = CDBS0 & CDBS1;
+
+
+/* Address latch logic */
+
+/* Bank 1 */
+MUX0 = !(LOAD & ((A0 & RS0) # (DMA0 & RS1)));
+AL0.AP = MUX0;
+AL0.J = 'b'0;
+AL0.CK = INC;
+AL0.K = 'b'0;
+LA0 = AL0;
+AL0.AR = !(LOAD & MUX0);
+
+MUX1 = !(LOAD & ((A1 & RS0) # (DMA1 & RS1)));
+AL1.AP = MUX1;
+AL1.J = 'b'0;
+AL1.CK = AL0;
+AL1.K = 'b'0;
+LA1 = AL1;
+AL1.AR = !(LOAD & MUX1);
+
+MUX2 = !(LOAD & ((A2 & RS0) # (DMA2 & RS1)));
+AL2.AP = MUX2;
+AL2.J = 'b'0;
+AL2.CK = AL1;
+AL2.K = 'b'0;
+LA2 = AL2;
+AL2.AR = !(LOAD & MUX2);
+
+MUX3 = !(LOAD & ((A3 & RS0) # (DMA3 & RS1)));
+AL3.AP = MUX3;
+AL3.J = 'b'0;
+AL3.CK = AL2;
+AL3.K = 'b'0;
+LA3 = AL3;
+AL3.AR = !(LOAD & MUX3);
+
+MUX4 = !(LOAD & ((A4 & RS0) # (DMA4 & RS1)));
+AL4.AP = MUX4;
+AL4.J = 'b'0;
+AL4.CK = AL3;
+AL4.K = 'b'0;
+LA4 = AL4;
+AL4.AR = !(LOAD & MUX4);
+
+MUX5 = !(LOAD & ((A5 & RS0) # (DMA5 & RS1)));
+AL5.AP = MUX5;
+AL5.J = 'b'0;
+AL5.CK = AL4;
+AL5.K = 'b'0;
+LA5 = AL5;
+AL5.AR = !(LOAD & MUX5);
+
+MUX6 = !(LOAD & ((A6 & RS0) # (DMA6 & RS1)));
+AL6.AP = MUX6;
+AL6.J = 'b'0;
+AL6.CK = AL5;
+AL6.K = 'b'0;
+LA6 = AL6;
+AL6.AR = !(LOAD & MUX6);
+
+MUX7 = !(LOAD & ((A7 & RS0) # (DMA7 & RS1)));
+AL7.AP = MUX7;
+AL7.J = 'b'0;
+AL7.CK = AL6;
+AL7.K = 'b'0;
+LA7 = AL7;
+AL7.AR = !(LOAD & MUX7);
+
+/* Bank 2 */
+MUX8 = !(LOAD & ((A8 & RS0) # (DMA0 & RS2)));
+AL8.AP = MUX8;
+AL8.J = 'b'0;
+AL8.CK = AL7;
+AL8.K = 'b'0;
+LA8 = AL8;
+AL8.AR = !(LOAD & MUX8);
+
+MUX9 = !(LOAD & ((A9 & RS0) # (DMA1 & RS2)));
+AL9.AP = MUX9;
+AL9.J = 'b'0;
+AL9.CK = AL8;
+AL9.K = 'b'0;
+LA9 = AL9;
+AL9.AR = !(LOAD & MUX9);
+
+MUX10 = !(LOAD & ((A10 & RS0) # (DMA2 & RS2)));
+AL10.AP = MUX10;
+AL10.J = 'b'0;
+AL10.CK = AL9;
+AL10.K = 'b'0;
+LA10 = AL10;
+AL10.AR = !(LOAD & MUX10);
+
+MUX11 = !(LOAD & ((A11 & RS0) # (DMA3 & RS2)));
+AL11.AP = MUX11;
+AL11.J = 'b'0;
+AL11.CK = AL10;
+AL11.K = 'b'0;
+LA11 = AL11;
+AL11.AR = !(LOAD & MUX11);
+
+MUX12 = !(LOAD & ((A12 & RS0) # (DMA4 & RS2)));
+AL12.AP = MUX12;
+AL12.J = 'b'0;
+AL12.CK = AL11;
+AL12.K = 'b'0;
+LA12 = AL12;
+AL12.AR = !(LOAD & MUX12);
+
+MUX13 = !(LOAD & ((A13 & RS0) # (DMA5 & RS2)));
+AL13.AP = MUX13;
+AL13.J = 'b'0;
+AL13.CK = AL12;
+AL13.K = 'b'0;
+LA13 = AL13;
+AL13.AR = !(LOAD & MUX13);
+
+MUX14 = !(LOAD & ((A14 & RS0) # (DMA6 & RS2)));
+AL14.AP = MUX14;
+AL14.J = 'b'0;
+AL14.CK = AL13;
+AL14.K = 'b'0;
+LA14 = AL14;
+AL14.AR = !(LOAD & MUX14);
+
+MUX15 = !(LOAD & ((A15 & RS0) # (DMA7 & RS2)));
+AL15.AP = MUX15;
+AL15.J = 'b'0;
+AL15.CK = AL14;
+AL15.K = 'b'0;
+LA15 = AL15;
+AL15.AR = !(LOAD & MUX15);
+
+/* Bank 2 */
+MUX16 = !(LOAD & ((A16 & RS0) # (DMA0 & RS3)));
+AL16.AP = MUX16;
+AL16.J = 'b'0;
+AL16.CK = AL15;
+AL16.K = 'b'0;
+LA16 = AL16;
+AL16.AR = !(LOAD & MUX16);
+
+MUX17 = !(LOAD & ((A17 & RS0) # (DMA1 & RS3)));
+AL17.AP = MUX17;
+AL17.J = 'b'0;
+AL17.CK = AL16;
+AL17.K = 'b'0;
+LA17 = AL17;
+AL17.AR = !(LOAD & MUX17);
+
+MUX18 = !(LOAD & ((A18 & RS0) # (DMA2 & RS3)));
+AL18.AP = MUX18;
+AL18.J = 'b'0;
+AL18.CK = AL17;
+AL18.K = 'b'0;
+LA18 = AL18;
+AL18.AR = !(LOAD & MUX18);
+
+MUX19 = !(LOAD & ((A19 & RS0) # (DMA3 & RS3)));
+AL19.AP = MUX19;
+AL19.J = 'b'0;
+AL19.CK = AL18;
+AL19.K = 'b'0;
+LA19 = AL19;
+AL19.AR = !(LOAD & MUX19);
+
+MUX20 = !(LOAD & ((A20 & RS0) # (DMA4 & RS3)));
+AL20.AP = MUX20;
+AL20.J = 'b'0;
+AL20.CK = AL19;
+AL20.K = 'b'0;
+LA20 = AL20;
+AL20.AR = !(LOAD & MUX20);
+
+MUX21 = !(LOAD & ((A21 & RS0) # (DMA5 & RS3)));
+AL21.AP = MUX21;
+AL21.J = 'b'0;
+AL21.CK = AL20;
+AL21.K = 'b'0;
+LA21 = AL21;
+AL21.AR = !(LOAD & MUX21);
+
+
+
+
+
+
