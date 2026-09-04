@@ -1,0 +1,77 @@
+Name     J11 Hack Power Reg;
+PartNo   22V10C ;
+Date     10/27/2016 ;
+Revision 02 ;
+Designer Len Bayles ;
+Company  TMD Innovations ;
+Assembly None ;
+Location  ;
+Device   g22v10;
+
+/* *************** INPUT PINS *********************/
+Pin 1 =     LAIO0;	/*  */ 
+PIN 2   =   LAIO1;	/*  */ 
+PIN 3   =   LAIO2;	/*  */ 
+PIN 4   =   LAIO3;	/*  */ 
+PIN 5   =   LDB0;	/*  */ 
+PIN 6   =   LDB1;	/*  */ 
+PIN 7   =   LDB2;	/*  */ 
+PIN 8   =   LDB3;	/*  */ 
+PIN 9   =   LDB4;	/*  */ 
+PIN 10  =   LDB5;	/*  */ 
+PIN 11  =   LDB6;	/*  */ 
+PIN 13  =   LDB7;	/*  */
+
+PIN 14	= BSEL;		/* Boot Select Option */
+PIN 15 = HMOD;		/* Halt Mode */
+
+/* *************** OUTPUT PINS *********************/
+PIN 23  =    DA0;	/* Power OK */ 
+PIN 22  =    DA1;	/* Power up mode bit 1 */ 
+PIN 21  =    DA2;	/* Power up mode bit 2 */ 
+PIN 20  =    DA3;	/* Halt Mode 0 = ODT / 1 = Trap through loc 4 */ 
+PIN 19  =    DA8;	/* 0 = No FPA */ 
+
+PIN 18  =    BBWRT;  /* AIO decode - Bus Byte Write */ 
+PIN 17  =    IAK;    /* AIO decode - Interrupt acknowledge vector read */
+
+
+/* *************** EQUATIONS *********************/
+DA0     =    LAIO0 # !LAIO0;		/* 1 */ 
+DA1     =    !BSEL;			/* BSEL Switch */ 
+DA2     =    BSEL;			/* BSEL Switch */ 
+DA3     =    HMOD;			/* HMOD Switch */ 
+DA8     =    LAIO0 & !LAIO0;		/* 0 */
+
+
+/* Power up mode 						*/
+/* Bits          						*/
+/* 2  1		Mode 						*/
+/*								*/
+/* 0  0		Trap through loc 24 				*/
+/* 0  1		Enter ODT					*/
+/* 1  0		Power-up to 17773000 				*/
+/* 1  1		Power-up to user defined address bits 15:9	*/
+
+
+GPR     =    LAIO3 & LAIO2 & LAIO1 & !LAIO0;	/* GP (General-Purpose) read */ 
+IAK     =    !LAIO3 & !LAIO2 &  LAIO1 & LAIO0;	/* Interrupt Acknowldge */
+
+BBWRT   =    !LAIO3 & !LAIO2 &  LAIO1 & LAIO0;	/* Bus Byte Write */ 
+BWWRT   =    !LAIO3 & !LAIO2 & !LAIO1 & LAIO0;	/* Bus Word Write */ 
+
+
+RE_0    =    !LDB7 & !LDB6 & !LDB5 & !LDB4 & !LDB3 & !LDB2 & !LDB1 & !LDB0;
+RE_2    =    !LDB7 & !LDB6 & !LDB5 & !LDB4 & !LDB3 & !LDB2 & LDB1 & !LDB0;
+
+DA0.OE  =    	GPR & (RE_0 # RE_2);	/*                                 */ 
+DA1.OE  =    	GPR & (RE_0 # RE_2);	/*                                 */ 
+DA2.OE  =    	GPR & (RE_0 # RE_2);	/*                                 */ 
+DA3.OE  =    	GPR & (RE_0 # RE_2);	/*                                 */ 
+DA8.OE  =    	GPR & (RE_0 # RE_2);	/*                                 */ 
+
+
+
+
+
+

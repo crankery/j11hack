@@ -1,0 +1,40 @@
+GAL22V10
+Power
+
+LAIO0 LAIO1 LAIO2 LAIO3 LDB0 LDB1  LDB2 LDB3 LDB4 LDB5 LDB6 GND
+LDB7  BSEL  HMOD  NC    IAK  BBWRT DA8  DA3  DA2  DA1  DA0  VCC
+
+DA0.T = LAIO0 + /LAIO1
+DA1.T = /BSEL
+DA2.T = BSEL
+DA3.T = HMOD
+DA8.T = LAIO0 * /LAIO0
+
+DA0.E = LAIO3 * LAIO2 * LAIO1 * /LAIO0 *
+        /LDB7 * /LDB6 * /LDB5 * /LDB4 *
+        /LDB3 * /LDB2 * /LDB0
+
+DA1.E = LAIO3 * LAIO2 * LAIO1 * /LAIO0 *
+        /LDB7 * /LDB6 * /LDB5 * /LDB4 *
+        /LDB3 * /LDB2 * /LDB0
+
+DA2.E = LAIO3 * LAIO2 * LAIO1 * /LAIO0 *
+        /LDB7 * /LDB6 * /LDB5 * /LDB4 *
+        /LDB3 * /LDB2 * /LDB0
+
+DA3.E = LAIO3 * LAIO2 * LAIO1 * /LAIO0 *
+        /LDB7 * /LDB6 * /LDB5 * /LDB4 *
+        /LDB3 * /LDB2 * /LDB0
+
+DA8.E = LAIO3 * LAIO2 * LAIO1 * /LAIO0 *
+        /LDB7 * /LDB6 * /LDB5 * /LDB4 *
+        /LDB3 * /LDB2 * /LDB0
+
+IAK   = /LAIO3 * /LAIO2 * LAIO1 * LAIO0
+BBWRT = /LAIO3 * /LAIO2 * LAIO1 * LAIO0
+
+DESCRIPTION
+
+J11 Hack Power Reg
+
+

@@ -1,0 +1,58 @@
+Name     J11 Hack Memory;
+PartNo   22V10C ;
+Date     11/02/2016 ;
+Revision 03 ;
+Designer Len Bayles ;
+Company  TMD Innovations ;
+Assembly None ;
+Location  ;
+Device   g22v10;
+
+/* *************** INPUT PINS *********************/
+Pin 1  = !ALE;		/*   */
+Pin 2  = !SCTL;	/*   */ 
+PIN 3  = !BUFCTL;	/*   */ 
+PIN 4  = LBS0;		/*   */ 
+PIN 5  = LBS1;		/*   */ 
+
+PIN 6  = BBWRT;	/* AIO Decoded signal for Buss Byte Write */
+PIN 7  = LA21;
+PIN 8  = LA20;
+PIN 9  = LA19;
+PIN 10 = LA18;
+PIN 11 = LA17;
+PIN 13 = LA0;
+
+
+/* *************** OUTPUT PINS *********************/
+PIN 23	= PERF;	/* I/O Bank Select */
+PIN 22 = ALEB;	/*   */ 
+PIN 21 = !WEH;	/* /WE for high byte */ 
+PIN 20 = !WEL;	/* /WE for low byte */ 
+PIN 19 = !OE;		/*   */
+ 
+PIN 18 = !CE0;	/* Bank 0 (512k) RAM	*/ 
+PIN 17 = !CE1;  	/* Bank 1 (512k) RAM */ 
+PIN 16 = !ROM;   	/* Bank 31 (128k) ROM */ 
+ 
+
+/* *************** EQUATIONS *********************/
+MEM	= !LBS1 & !LBS0;	/* Bank Select Memory */ 
+PERF	=  LBS1 & !LBS0;	/* Bank Select I/O */
+OE	= BUFCTL;		/*  */ 
+WEH	= (LA0 # !BBWRT) & SCTL & !BUFCTL;	 /* Write Enable High Byte */
+WEL	= (!LA0 # !BBWRT) & SCTL & !BUFCTL;	 /* Write Enable Low Byte */
+ALEB	= ALE;			/*  */ 
+
+CE0	= MEM & BNK0;
+CE1	= MEM & BNK1;
+ROM	= MEM & BNK31;
+
+BNK0	=  !LA20 & !LA21;				/* 00000000	1Mb*/
+BNK1	=  !LA20 &  LA21;				/* 02000000	1Mb*/
+
+BNK31	=  LA17 & LA18 &  LA19 &  LA20 &  LA21;	/* 17400000	128Kb)*/ 
+
+
+
+

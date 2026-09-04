@@ -1,0 +1,67 @@
+Name     J11 Hack I/O;
+PartNo   22V10C ;
+Date     3/28/2017 ;
+Revision 05 ;
+Designer Len Bayles ;
+Company  TMD Innovations ;
+Assembly None ;
+Location  ;
+Device   g22v10;
+
+/* *************** INPUT PINS *********************/
+Pin 1  =   PERF;	/*  */
+Pin 2  =   !SCTL;	/*  */ 
+PIN 3  =   !BUFCTL;	/*  */ 
+PIN 4  =   DR0;	/* SLU0 */ 
+PIN 5  =   TBRE0;	/* SLU0 */ 
+
+PIN 6  =   DR1;	/* SLU1 */ 
+PIN 7  =   TBRE1;	/* SLU1 */ 
+
+PIN 8  =   LA1;	/*  */ 
+PIN 9  =   LA2;	/*  */ 
+
+PIN 10  =  LA8;	/*  */
+PIN 11  =  LA9;	/*  */
+PIN 13 =   LA10;	/*  */
+PIN 14 =   LA11;	/*  */
+
+/* *************** OUTPUT PINS *********************/
+PIN 23  =    !TBRL0;	/*  */
+PIN 22  =    !DRR0;	/*  */ 
+
+PIN 21  =    !TBRL1;	/*  */
+PIN 20  =    !DRR1;	/*  */ 
+
+PIN 19  =    !BROM;	/*  */
+PIN 18  =    !PAR0;	/*  */ 
+PIN 17  =    !MSCP;	/*  */ 
+
+PIN 16  =    DA7;	/*  */
+/*PIN 15  =    DA7_1;	  */
+
+
+
+/* *************** EQUATIONS *********************/
+
+DA7      = !LA2 & DR0 & SLU0 # LA2 & TBRE0 & SLU0 # !LA2 & DR1 & SLU1 # LA2 & TBRE1 & SLU1;	/*  SLU R&X CSR's*/ 
+DA7.OE   = PERF &!LA1 & BUFCTL & SLU0 # PERF &!LA1 & BUFCTL & SLU1;					/*  SLU R&X CSR's*/ 
+
+/* DA7_0      = !LA2 & DR0 & SLU0 # LA2 & TBRE0 & SLU0;		  SLU0 */ 
+/* DA7_0.OE   = PERF &!LA1 & BUFCTL & SLU0;				  SLU0 */ 
+
+/* DA7_1      = !LA2 & DR1 & SLU1 # LA2 & TBRE1 & SLU1;		  SLU1 */ 
+/* DA7_1.OE   = PERF &!LA1 & BUFCTL & SLU1;				  SLU1 */ 
+
+DRR0     = PERF & SLU0 &!LA2 & LA1 & BUFCTL;				/*  SLU0 */ 
+TBRL0    = PERF & SLU0 & LA2 & LA1 & !BUFCTL & SCTL;			/*  SLU0 */ 
+
+DRR1     = PERF & SLU1 &!LA2 & LA1 & BUFCTL;				/*  SLU1 */ 
+TBRL1    = PERF & SLU1 & LA2 & LA1 & !BUFCTL & SCTL;			/*  SLU1 */ 
+ 
+BROM =	 !LA11 &  LA10 &  LA9 & PERF;			/* Boot Rom 173000 */
+SLU0 =   LA11 &  LA10 &  LA9 &  LA8;			/* SLU0 177560 */
+SLU1 =   LA11 &  LA10 & !LA9 &  LA8;			/* SLU1 176500 */
+PAR0 =   LA11 &  LA10 & !LA9 & !LA8 & PERF;		/* PAR0 176160 */
+MSCP =  !LA11 &  LA10 & !LA9 & PERF;			/* MSCP 172150 */
+

@@ -1,0 +1,29 @@
+
+
+ Pin # | Name     | Pin Type
+-----------------------------
+   1   | LAIO0    | Clock/Input
+   2   | LAIO1    | Input
+   3   | LAIO2    | Input
+   4   | LAIO3    | Input
+   5   | LDB0     | Input
+   6   | LDB1     | Input
+   7   | LDB2     | Input
+   8   | LDB3     | Input
+   9   | LDB4     | Input
+  10   | LDB5     | Input
+  11   | LDB6     | Input
+  12   | GND      | GND
+  13   | LDB7     | Input
+  14   | BSEL     | Input
+  15   | HMOD     | Input
+  16   | NC       | NC
+  17   | IAK      | Output
+  18   | BBWRT    | Output
+  19   | DA8      | Output
+  20   | DA3      | Output
+  21   | DA2      | Output
+  22   | DA1      | Output
+  23   | DA0      | Output
+  24   | VCC      | VCC
+

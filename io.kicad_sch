@@ -5248,7 +5248,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "HD-6402_{B}"
+		(property "Value" "HD-6402"
 			(at 143.1133 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8203,7 +8203,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "HD-6402_{A}"
+		(property "Value" "HD-6402"
 			(at 68.1833 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -13272,6 +13272,12 @@
 		)
 	)
 	(junction
+		(at 182.88 115.57)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "03b3c5bd-9158-4926-856e-222a3fa86058")
+	)
+	(junction
 		(at 203.2 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -13360,6 +13366,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a587ee35-77e0-4198-9d7a-519a035bd06b")
+	)
+	(junction
+		(at 190.5 121.92)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bf446ff1-3e71-47e6-af1b-9fa539f1cc09")
 	)
 	(junction
 		(at 179.07 143.51)
@@ -13636,16 +13648,6 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 118.11) (xy 190.5 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a75051f-7ea8-426c-8a69-b6e44dc658a5")
-	)
-	(wire
-		(pts
 			(xy 81.28 43.18) (xy 118.11 43.18)
 		)
 		(stroke
@@ -13733,6 +13735,16 @@
 			(type default)
 		)
 		(uuid "5fa5de2e-f279-48b4-95f2-c0a179cf1b1a")
+	)
+	(wire
+		(pts
+			(xy 190.5 110.49) (xy 190.5 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6614c83d-f613-4480-8351-dd4ec971ae2b")
 	)
 	(wire
 		(pts
@@ -13983,6 +13995,16 @@
 			(type default)
 		)
 		(uuid "bd41e5af-dc2c-4504-9857-da96fb695260")
+	)
+	(wire
+		(pts
+			(xy 182.88 115.57) (xy 182.88 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c056ecb8-02e6-4ce3-a386-9eb6e5121e45")
 	)
 	(wire
 		(pts
@@ -15004,7 +15026,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 190.5 114.3 0)
+		(at 186.69 121.92 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15015,29 +15037,27 @@
 		(fields_autoplaced yes)
 		(uuid "30b71097-9a62-4465-986c-c3508cf54d15")
 		(property "Reference" "R19"
-			(at 193.04 113.0299 0)
+			(at 186.69 115.57 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "100K"
-			(at 193.04 115.5699 0)
+			(at 186.69 118.11 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "J11Hack:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 188.722 114.3 90)
+			(at 186.69 123.698 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15048,7 +15068,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 190.5 114.3 0)
+			(at 186.69 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15059,7 +15079,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 190.5 114.3 0)
+			(at 186.69 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
